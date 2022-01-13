@@ -4,12 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFD494"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#CDCDCD"
+        android:layout_marginBottom="50dp"
+        android:text="The Secret Garden"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/GmarketSansTTFBold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/passwordLayout"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/passwordLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FFC0C0"
         android:padding="15dp"
         app:layout_constraintVertical_bias="0.45"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +36,7 @@
             android:layout_width="50dp"
             android:layout_height="70dp"
             android:layout_marginEnd="10dp"
-            android:background="#A3A3A3"
+            android:background="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="@id/numberPicker1"
             app:layout_constraintEnd_toStartOf="@id/numberPicker1"
             app:layout_constraintStart_toStartOf="parent"
