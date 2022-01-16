@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.NumberPicker
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +23,20 @@ class MainActivity : AppCompatActivity() {
 
             val passwordFromUser = "${numberPicker1.value}${numberPicker2.value}${numberPicker3.value}"
 
-            passwordPreferences.getString("password","000")
+            // if password success
+            if (passwordPreferences.getString("password","000").equals(passwordFromUser))
+            {
+               // startActivity(intent)
+
+                //TODO must write diary pages
+            }
+            // if password failure
+            else
+            {
+                AlertDialog.Builder(this)
+                    .setTitle("failure!")
+                    .setMessage("wrong password. plz type again")
+            }
         }
     }
 
