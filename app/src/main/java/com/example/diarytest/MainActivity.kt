@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 
@@ -19,6 +20,12 @@ class MainActivity : AppCompatActivity() {
         numberPicker3
 
         openButton.setOnClickListener {
+
+            if(changePasswordMode){
+                Toast.makeText(this,"your are doing changing password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val passwordPreferences = getSharedPreferences("password", Context.MODE_PRIVATE)
 
             val passwordFromUser = "${numberPicker1.value}${numberPicker2.value}${numberPicker3.value}"
@@ -36,9 +43,23 @@ class MainActivity : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("failure!")
                     .setMessage("wrong password. plz type again")
+                    .setPositiveButton("check"){ _, _ ->}
+                    .create()
+                    .show()
+            }
+        }
+        changePasswordButton.setOnClickListener {
+
+            if(changePasswordMode){
+                // save password func
+            }
+            else{
+                //changePasswordMode activated :: checking password is right or not
             }
         }
     }
+
+    private var changePasswordMode = false;
 
     private val openButton: AppCompatButton by lazy {
         findViewById<AppCompatButton>(R.id.openButton)
