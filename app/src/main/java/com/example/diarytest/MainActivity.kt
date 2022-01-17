@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
             val passwordFromUser = "${numberPicker1.value}${numberPicker2.value}${numberPicker3.value}"
 
+            //preference로 정보 와 모드 설정 및 가져오기
             // if password success
             if (passwordPreferences.getString("password","000").equals(passwordFromUser))
             {
@@ -52,9 +53,8 @@ class MainActivity : AppCompatActivity() {
             val passwordPreferences = getSharedPreferences("password",Context.MODE_PRIVATE)
 
             if(changePasswordMode){
-
+                //edit 을 통해 저장 commit(동기) or apply(비동기)로 나눔
              passwordPreferences.edit(commit = true){
-
 
                  putString("password", passwordFromUser)
              }
