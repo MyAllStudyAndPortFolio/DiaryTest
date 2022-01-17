@@ -1,6 +1,9 @@
 package com.example.diarytest
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.RED
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -8,6 +11,7 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,30 +37,61 @@ class MainActivity : AppCompatActivity() {
             // if password success
             if (passwordPreferences.getString("password","000").equals(passwordFromUser))
             {
-               // startActivity(intent)
-
-                //TODO must write diary pages
+               startActivity(Intent(this,DiaryActivity::class.java))
             }
             // if password failure
             else
             {
-                AlertDialog.Builder(this)
-                    .setTitle("failure!")
-                    .setMessage("wrong password. plz type again")
-                    .setPositiveButton("check"){ _, _ ->}
-                    .create()
-                    .show()
+                showErrorAlertDialog()
             }
         }
         changePasswordButton.setOnClickListener {
 
+
+            val passwordFromUser = "${numberPicker1.value}${numberPicker2.value}${numberPicker3.value}"
+            val passwordPreferences = getSharedPreferences("password",Context.MODE_PRIVATE)
+
             if(changePasswordMode){
-                // save password func
+
+             passwordPreferences.edit(commit = true){
+
+
+                 putString("password", passwordFromUser)
+             }
+
+                changePasswordMode = false
+                changePasswordButton.setBackgroundColor(Color.BLACK)
+
             }
             else{
                 //changePasswordMode activated :: checking password is right or not
+
+
+                // if password success
+                if (passwordPreferences.getString("password","000").equals(passwordFromUser))
+                {
+                    changePasswordMode = true
+                    Toast.makeText(this,"please type changing password",Toast.LENGTH_SHORT).show()
+
+                    changePasswordButton.setBackgroundColor(Color.RED)
+                }
+                // if password failure
+                else
+                {
+                    showErrorAlertDialog()
+                }
+
+
             }
         }
+    }
+    private fun showErrorAlertDialog(){
+        AlertDialog.Builder(this)
+            .setTitle("failure!")
+            .setMessage("wrong password. plz type again")
+            .setPositiveButton("check"){ _, _ ->}
+            .create()
+            .show()
     }
 
     private var changePasswordMode = false;
